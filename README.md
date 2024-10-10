@@ -1,4 +1,8 @@
-# React + TypeScript + Vite
+# Primeiro desafio - Ignite RocketSeat
+
+## React + TypeScript + Vite
+
+Requisitos:
 
 - Adicionar uma nova tarefa
 - Marcar e desmarcar uma tarefa como concluída
