@@ -1,9 +1,17 @@
 import React, { FormEvent, useState } from "react";
 import styles from "./Form.module.css";
+import { GrTrash } from "react-icons/gr";
+import InfoUpperList from "../InfoUpperList/InfoUpperList";
+
+type Item = {
+  item: string;
+  id: number;
+};
 
 const Form = () => {
-  const [list, setList] = useState(["lavar a louça"]);
-  const [inputValue, setInputValue] = useState("");
+  const [list, setList] = useState<Item[]>([{ item: "lavar a louça", id: 1 }]);
+  const [inputValue, setInputValue] = useState<string>("");
+  const [checkedItens, setCheckedItens] = useState<number[]>([]);
 
   const handleAddItem = (e: FormEvent) => {
     e.preventDefault();
@@ -12,45 +20,80 @@ const Form = () => {
       return;
     }
     setList((state) => {
-      return [...state, inputValue];
+      return [...state, { item: inputValue, id: state.length + 1 }];
     });
 
     setInputValue("");
   };
 
-  const removeItem = (e: React.MouseEvent<HTMLButtonElement>, item: string) => {
+  const removeItem = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
     e.preventDefault();
-    const newListAfterRemove = list.filter((itemFilter) => {
-      return itemFilter !== item;
-    });
+    const newListAfterRemove = list.filter(
+      (itemFilter) => itemFilter.id !== id
+    );
+
+    if (checkedItens.includes(id)) {
+      setCheckedItens(() => {
+        return checkedItens.filter((idRemove) => {
+          return idRemove !== id;
+        });
+      });
+    }
     setList(newListAfterRemove);
+  };
+
+  const checkItemList = (e: React.MouseEvent<HTMLElement>, id: number) => {
+    e.preventDefault();
+    setCheckedItens((state) => {
+      if (!checkedItens.includes(id)) {
+        return [...state, id];
+      } else {
+        return checkedItens.filter((itemDischecked) => {
+          return itemDischecked !== id;
+        });
+      }
+    });
   };
 
   return (
     <form className={styles.form} onSubmit={handleAddItem}>
       <h1>Lista de itens</h1>
 
-      <div>
+      <div className={styles.boxNewItem}>
         <input
+          className={styles.input}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button>Adicionar</button>
+        <button type="submit">Adicionar</button>
       </div>
+
+      <InfoUpperList list={list} markedItens={checkedItens} />
 
       <ul className={styles.list}>
         {list.length ? (
-          list.reverse().map((item) => {
-            return (
-              <div key={item} className={styles.items}>
-                <button onClick={(e) => removeItem(e, item)}>Remover</button>
-                <li>{item}</li>
-                <input type="checkbox" />
-              </div>
-            );
-          })
+          list.map((item) => (
+            <div className={styles.items} key={item.id}>
+              <button
+                title="Remover item"
+                onClick={(e) => removeItem(e, item.id)}
+              >
+                <GrTrash size={20} />
+              </button>
+              <li>{item.item}</li>
+              <div
+                onClick={(e) => checkItemList(e, item.id)}
+                style={
+                  checkedItens.includes(item.id)
+                    ? { background: "rgb(215, 22, 229)" }
+                    : {}
+                }
+                className={styles.checkItem}
+              ></div>
+            </div>
+          ))
         ) : (
-          <div>Não há itens na lista :(</div>
+          <div className={styles.emptyMessage}>Não há itens na lista</div>
         )}
       </ul>
     </form>
