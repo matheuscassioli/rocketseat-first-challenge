@@ -1,0 +1,30 @@
+.header { 
+    display: flex;
+    padding: 1rem 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    width: 52px;
+    height: 52px;
+    border-radius: 6px;
+    animation: animatedLogo 2s ease-in-out infinite;
+}
+@keyframes animatedLogo {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.08);
+    }
+
+    50% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
