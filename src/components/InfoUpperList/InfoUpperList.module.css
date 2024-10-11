@@ -1,0 +1,24 @@
+.infoUpper {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    width: 70%;
+}
+
+.infoUpper button {
+    background-color: var(--purple-button);
+    color: white;
+}
+
+.infoUpper div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+}
+
+.infoUpper div:last-child {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 0.875rem;
+}

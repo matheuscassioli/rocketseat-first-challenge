@@ -43,7 +43,7 @@ const Form = () => {
   };
 
   const checkItemList = (e: React.MouseEvent<HTMLElement>, id: number) => {
-    e.preventDefault();
+    e.preventDefault(); 
     setCheckedItens((state) => {
       if (!checkedItens.includes(id)) {
         return [...state, id];
@@ -68,7 +68,14 @@ const Form = () => {
         <button type="submit">Adicionar</button>
       </div>
 
-      <InfoUpperList list={list} markedItens={checkedItens} />
+      <hr />
+
+      <InfoUpperList
+        list={list}
+        markedItens={checkedItens}
+        setList={setList}
+        setCheckedItens={setCheckedItens}
+      />
 
       <ul className={styles.list}>
         {list.length ? (

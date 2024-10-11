@@ -1,13 +1,37 @@
- body {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-   background-color: #191919;
-   color: white;
-   font-family: 'Roboto', sans-serif;
- }
+:root {
+  --purple-button: #993e99;
+}
 
- button {
-   padding: .675rem .875rem;
-   border-radius: 8px;
- }
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #191919;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+button {
+  padding: .675rem .875rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.is-small {
+  padding: .475rem .675rem !important;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+hr {
+  width: 92%;
+  border: none;
+  height: 1px;
+  background: #454545;
+  margin-top: 1rem;
+}
+
+.disabled-button {
+  cursor: not-allowed;
+  opacity: .7;
+}
